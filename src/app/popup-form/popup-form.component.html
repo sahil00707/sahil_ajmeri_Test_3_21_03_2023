@@ -1,24 +1,26 @@
-<form #myForm="ngForm">
-    <br>
-    <br>
-    <br>
+<form #myForm="ngForm" id="myForm">
+
     <h1>Create Program</h1>
-    <input type="text"  placeholder="Program Name" name="programName" [ngModel]="editData.programName" >
-    <br>
-    <br> <input placeholder="Program Number" name="programNumber" [ngModel]="editData.programNumber" #programNumber type="text">
-    <br>
-    <br> <input placeholder="Program Budget" name="programBudget" [ngModel]="editData.programBudget" #programBudget type="number">
-    <br>
-    <br> <input placeholder="Program Description" name="programDescription" [ngModel]="editData.programDescription" #programDescription type="text">
-    <br>
-    <br>
+    <input type="text" placeholder="Program Name" name="programName" [ngModel]="editData.programName">
+
+    <input placeholder="Program Number" name="programNumber" [ngModel]="editData.programNumber" #programNumber
+        type="text">
+
+    <input placeholder="Program Budget" name="programBudget" [ngModel]="editData.programBudget" #programBudget
+        type="number">
+
+    <input placeholder="Program Description" name="programDescription" [ngModel]="editData.programDescription"
+        #programDescription type="text">
+
     <!-- <label for="checkbox">
         <input type="checkbox" name="virtualProgram" [ngModel]="editData.isActive" #virtualProgram id="checkbox">
     <p class="checkbox">Virtual program</p>
     </label> -->
-    <br>
-    <br>
-    <button *ngIf="editData.programID!=''" (click)="updateData(editData.programID,myForm.value)">Update</button>
-    <button *ngIf="editData.programID==''" (click)="sendData(myForm.value)">Save</button>
-    <button routerLink="/" >Back</button>
+    <div class="btns">
+
+        <button class="update_save" *ngIf="editData.programID!=''"
+            (click)="updateData(editData.programID,myForm.value)">Update</button>
+        <button class="update_save" *ngIf="editData.programID==''" (click)="sendData(myForm.value)">Save</button>
+        <button (click)="close()" class="close">close</button>
+    </div>
 </form>

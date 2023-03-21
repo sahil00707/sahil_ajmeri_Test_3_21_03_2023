@@ -1,3 +1,9 @@
+<br>
+<br>
+<br>
+<br>
+<button (click)="addData()" class="add">Add Program</button>
+
 <ejs-grid [dataSource]="tempData">
     <e-columns>
         <e-column field='programName' headerText='programName' textAlign='center' width=50></e-column>
@@ -5,13 +11,15 @@
         <e-column field='programBudget' headerText='Freight' textAlign='center' format='C2' width=50></e-column>
         <e-column field='programDescription' headerText='Order Date' textAlign='center' width=100></e-column>
         <e-column field='programID' headerText='Order Date' textAlign='center' format='yMd' width=50>
-         <ng-template #template let-data>
-            <button (click)="editdata(data)">Edit</button>
-            <button (click)="changeStatus(data.programID,data,!data.isActive)">{{data.isActive?'Activate':'Deactive'}}</button>
-         </ng-template>
+            <ng-template #template let-data>
+                <button (click)="editdata(data)" class="edit">Edit</button>
+                <button
+                    (click)="changeStatus(data.programID,data,!data.isActive)" class="active">{{data.isActive?'Activate':'Deactive'}}</button>
+            </ng-template>
         </e-column>
     </e-columns>
 </ejs-grid>
-<button (click)="addData()" >Add</button>
-
+<app-popup-form class="popupForm" id="popupForm" *ngIf="popupBox.value">
+  
+</app-popup-form>
 <router-outlet></router-outlet>

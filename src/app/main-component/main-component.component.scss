@@ -1,9 +1,26 @@
 .popupForm{
-    position: absolute;
+    position:fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
     background-color: black;
     border: 2px solid black;
     z-index: 10;
+}
+.edit,.active{
+    padding: 10px 20px;
+    background-color: red;
+    color: white;
+    border: none;
+}
+.active{
+    background-color: blue;
+    margin-left: 10px;
+}
+.add{
+    background-color: green;
+    padding: 10px 20px;
+    border: none;
+    color: white;
+    margin-bottom: 20px;
 }

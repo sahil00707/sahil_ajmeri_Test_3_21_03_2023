@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
 import { pluck } from 'rxjs';
-import { DataType, DataType2 } from '../data-type';
-import { MyserviceService } from '../myservice.service';
+import { ApiDataType, programDataType } from '../interface/data-type';
+import { MyserviceService } from '../services/myservice.service';
 import { MainComponentComponent } from '../main-component/main-component.component';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-popup-form',
   templateUrl: './popup-form.component.html',
   styleUrls: ['./popup-form.component.scss']
 })
 export class PopupFormComponent {
-  editData: DataType = {
+  editData: programDataType = {
     programBudget: 0,
     programDescription: '',
     programName: '',
@@ -20,26 +21,36 @@ export class PopupFormComponent {
     canDelete: false
 
   }
-  sendData(myForm: DataType) {
-    this.myservice.sendData(myForm)
+  sendData(myForm: programDataType) {
+    this.myservice.sendData(myForm).subscribe()
+    // window.location.reload()
 
   }
-  constructor(private myservice: MyserviceService) {
+  constructor(private myservice: MyserviceService, private router: Router) {
 
   }
   ngOnInit() {
     this.editData = this.myservice.formData;
-    console.log(this.editData);
-
-    this.myservice.getProject().subscribe(res => {
-
-      console.log(res);
-    });
+    this.myservice.getProject().subscribe();
   }
-  updateData(programID: string, updatedData: DataType2) {
-    updatedData.programID=programID;
-    // console.log(programID);
-    this.myservice.updateData(programID, updatedData).subscribe()
+  updateData(programID: string, updatedData: programDataType) {
+    updatedData.programID = programID;
+    this.myservice.updateData(updatedData).subscribe();
+    this.router.navigate([this.router.url])
   }
+  close() {
+    this.editData = {
+      programBudget: 0,
+      programDescription: '',
+      programName: '',
+      programNumber: '',
+      isVirtual: false,
+      programID: '',
+      isActive: false,
+      canDelete: false
 
+    }
+    this.myservice.isClicked.next(false);
+
+  }
 }
