@@ -32,7 +32,6 @@ export class MyserviceService {
     );
   }
 
-
   sendData(programData: programDataType) {
     const formObject = new FormData();
     Object.keys(programData).forEach((key) =>
@@ -46,8 +45,6 @@ export class MyserviceService {
       return res;
     }),)
   }
-
-
 
   updateData(programData: programDataType) {
     const formObject = new FormData();
@@ -68,11 +65,8 @@ export class MyserviceService {
             }
           });
           this.allPrograms.next(data2);
-
         }
       })
-
-
     )
   }
 
@@ -80,5 +74,4 @@ export class MyserviceService {
     data.isActive = isActive
     return this.http.put(`http://cmi-ofm.azurewebsites.net/api/program/${programID}/Activate`, data)
   }
-
 }

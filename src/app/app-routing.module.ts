@@ -5,18 +5,18 @@ import { PopupFormComponent } from './popup-form/popup-form.component';
 
 const routes: Routes = [
   {
-    path:'',
-    component:MainComponentComponent,
-    pathMatch:'full'
+    path: '',
+    component: MainComponentComponent,
+    pathMatch: 'full'
   },
   {
-    path:'app-popup-form',
-    component:PopupFormComponent,
+    path: 'app-popup-form',
+    component: PopupFormComponent,
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes,{ onSameUrlNavigation: 'reload' })],
+  imports: [RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

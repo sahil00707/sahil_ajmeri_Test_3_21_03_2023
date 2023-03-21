@@ -19,12 +19,13 @@ export class PopupFormComponent {
     programID: '',
     isActive: false,
     canDelete: false
-
   }
   sendData(myForm: programDataType) {
-    this.myservice.sendData(myForm).subscribe()
-    // window.location.reload()
-
+    this.myservice.sendData(myForm).subscribe();
+    setTimeout(() => {
+      alert('Data Added Successfully')
+      window.location.reload();
+    }, 1200);
   }
   constructor(private myservice: MyserviceService, private router: Router) {
 
@@ -36,7 +37,11 @@ export class PopupFormComponent {
   updateData(programID: string, updatedData: programDataType) {
     updatedData.programID = programID;
     this.myservice.updateData(updatedData).subscribe();
-    this.router.navigate([this.router.url])
+    setTimeout(() => {
+      alert('Data Updated  Successfully')
+      window.location.reload();
+    }, 1200);
+   
   }
   close() {
     this.editData = {
@@ -48,9 +53,7 @@ export class PopupFormComponent {
       programID: '',
       isActive: false,
       canDelete: false
-
     }
     this.myservice.isClicked.next(false);
-
   }
 }
