@@ -4,13 +4,14 @@ import { ApiDataType, programDataType } from '../interface/data-type';
 import { MyserviceService } from '../services/myservice.service';
 import { MainComponentComponent } from '../main-component/main-component.component';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-popup-form',
   templateUrl: './popup-form.component.html',
   styleUrls: ['./popup-form.component.scss']
 })
-export class PopupFormComponent implements OnInit{
-  addOrEdit=this.myservice.addOrEdit
+export class PopupFormComponent implements OnInit {
+  addOrEdit = this.myservice.addOrEdit
   editData: programDataType = {
     programBudget: 0,
     programDescription: '',
@@ -36,23 +37,24 @@ export class PopupFormComponent implements OnInit{
     this.myservice.getProject().subscribe();
   }
   updateData(programID: string, updatedData: programDataType) {
-   const varify = confirm('are you sure you want to edit?')
-   if(varify){
-    updatedData.programID = programID;
-    this.myservice.updateData(updatedData).subscribe(res=>{
+    const varify = confirm('are you sure you want to edit?')
+    if (varify) {
+      updatedData.programID = programID;
+      this.myservice.updateData(updatedData).subscribe(res => {
 
-    });
-    setTimeout(() => {
-      alert('Data Updated  Successfully')
-      window.location.reload();
-    }, 1200);
-   }
-   else{
-    this.myservice.isClicked.next(false);
-   }
+      });
+      setTimeout(() => {
+        alert('Data Updated  Successfully')
+        window.location.reload();
+      }, 1200);
+   //   this.myservice.getProject().subscribe()
+    }
+    else {
+      this.myservice.isClicked.next(false);
+    }
   }
   close() {
-   
+
     this.myservice.isClicked.next(false);
   }
 }

@@ -19,17 +19,10 @@ export class MyserviceService {
     canDelete: false
   }
   allPrograms = new BehaviorSubject<programDataType[]>([]);
-  tempData: programDataType[] = [];
   constructor(private http: HttpClient) { }
 
   getProject() {
-    return this.http.get<ApiDataType<programDataType[]>>('http://cmi-ofm.azurewebsites.net/api/Program').pipe(
-      map((res) => {
-        this.tempData = res.programs
-        this.allPrograms.next(res.programs);
-        return res;
-      })
-    );
+    return this.http.get<ApiDataType<programDataType[]>>('http://cmi-ofm.azurewebsites.net/api/Program')
   }
 
   sendData(programData: programDataType) {
@@ -37,13 +30,7 @@ export class MyserviceService {
     Object.keys(programData).forEach((key) =>
       formObject.append(key, (programData as any)[key])
     );
-    return this.http.post('http://cmi-ofm.azurewebsites.net/api/program', formObject).pipe(map((res) => {
-      if (res) {
-        this.tempData.push(programData);
-        this.allPrograms.next(this.tempData);
-      }
-      return res;
-    }),)
+    return this.http.post('http://cmi-ofm.azurewebsites.net/api/program', formObject)
   }
 
   updateData(programData: programDataType) {
@@ -51,23 +38,7 @@ export class MyserviceService {
     Object.keys(programData).forEach((key) =>
       formObject.append(key, (programData as any)[key])
     );
-    return this.http.put(`http://cmi-ofm.azurewebsites.net/api/program`, formObject).pipe(
-      map((res) => {
-        if (res) {
-          const data1 = this.allPrograms.getValue();
-          const data2: programDataType[] = [];
-          data1.forEach((data) => {
-            if (data.programID === programData.programID) {
-              data2.push(data)
-            }
-            else {
-              data2.push(programData)
-            }
-          });
-          this.allPrograms.next(data2);
-        }
-      })
-    )
+    return this.http.put(`http://cmi-ofm.azurewebsites.net/api/program`, formObject)
   }
 
 
@@ -75,42 +46,12 @@ export class MyserviceService {
   updateStatus(programData: programDataType) {
     const formObject = new FormData();
     formObject.append('programID', programData.programID)
-    return this.http.put(`http://cmi-ofm.azurewebsites.net/api/Program/${programData.programID}/Activate`, formObject).pipe(
-      map((res) => {
-        if (res) {
-          const data1 = this.allPrograms.getValue();
-          const data2: programDataType[] = [];
-          data1.forEach((data) => {
-            if (data.programID === programData.programID) {
-              data.isActive = true;
-            }
-            data2.push(data)
-          });
-          this.allPrograms.next(data2);
-          //   return res;
-        }
-      })
-    )
+    return this.http.put(`http://cmi-ofm.azurewebsites.net/api/Program/${programData.programID}/Activate`, formObject)
   }
 
   deactivate(programData: programDataType) {
 
-    return this.http.delete(`http://cmi-ofm.azurewebsites.net/api/Program/${programData.programID}`).pipe(
-      map((res) => {
-        if (res) {
-          const data1 = this.allPrograms.getValue();
-          const data2: programDataType[] = [];
-          data1.forEach((data) => {
-            if (data.programID === programData.programID) {
-              data.isActive = false;
-            }
-            data2.push(data)
-          });
-          this.allPrograms.next(data2);
-          //   return res;
-        }
-      })
-    )
+    return this.http.delete(`http://cmi-ofm.azurewebsites.net/api/Program/${programData.programID}`)
   }
 
 }
