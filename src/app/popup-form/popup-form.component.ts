@@ -1,5 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { pluck } from 'rxjs';
+import { Component, ContentChild, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ApiDataType, programDataType } from '../interface/data-type';
 import { MyserviceService } from '../services/myservice.service';
 import { MainComponentComponent } from '../main-component/main-component.component';
@@ -23,38 +22,29 @@ export class PopupFormComponent implements OnInit {
     canDelete: false
   }
   sendData(myForm: programDataType) {
-    this.myservice.sendData(myForm).subscribe();
-    setTimeout(() => {
-      alert('Data Added Successfully')
-      window.location.reload();
-    }, 1200);
+    this.myservice.sendData(myForm).subscribe(res => {
+      this.myservice.isClicked.next(false);
+      alert('Data Added Successfully');
+      this.main.close();
+
+    });
   }
-  constructor(private myservice: MyserviceService, private router: Router) {
+  constructor(private myservice: MyserviceService, private router: Router, private main: MainComponentComponent) {
 
   }
   ngOnInit() {
     this.editData = this.myservice.formData;
-    this.myservice.getProject().subscribe();
+    this.myservice.getProject().subscribe()
   }
   updateData(programID: string, updatedData: programDataType) {
-    const varify = confirm('are you sure you want to edit?')
-    if (varify) {
-      updatedData.programID = programID;
-      this.myservice.updateData(updatedData).subscribe(res => {
 
-      });
-      setTimeout(() => {
-        alert('Data Updated  Successfully')
-        window.location.reload();
-      }, 1200);
-   //   this.myservice.getProject().subscribe()
-    }
-    else {
-      this.myservice.isClicked.next(false);
-    }
+    updatedData.programID = programID;
+    this.myservice.updateData(updatedData).subscribe(res => {
+      alert('Data Updated Successfully')
+      this.main.close();
+    });
   }
   close() {
-
-    this.myservice.isClicked.next(false);
+    this.myservice.isClicked.next(false)
   }
 }

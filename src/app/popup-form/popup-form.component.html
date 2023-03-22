@@ -12,14 +12,11 @@
     <input placeholder="Program Description" name="programDescription" [ngModel]="editData.programDescription"
         #programDescription type="text">
 
-    <!-- <label for="checkbox">
-        <input type="checkbox" name="virtualProgram" [ngModel]="editData.isActive" #virtualProgram id="checkbox">
-    <p class="checkbox">Virtual program</p>
-    </label> -->
     <div class="btns">
 
         <button class="update_save" (click)="updateData(editData.programID,myForm.value)">Update</button>
-        <button (click)="close()" class="close">close</button>
+        <button class="close"  (click)="close()">Close</button>
+
     </div>
 </form>
 
@@ -35,12 +32,10 @@
 
     <input placeholder="Program Description" name="programDescription" required [ngModel]="" #programDescription type="text">
 
-    <!-- <label for="checkbox">
-        <input type="checkbox" name="virtualProgram" [ngModel]="editData.isActive" #virtualProgram id="checkbox">
-    <p class="checkbox">Virtual program</p>
-    </label> -->
     <div class="btns">
         <button class="update_save" (click)="sendData(myForm.value)" [disabled]="!myForm.valid">Save</button>
-        <button (click)="close()" class="close">close</button>
+       
+        <button class="close"  (click)="close()">Close</button>
+
     </div>
 </form>

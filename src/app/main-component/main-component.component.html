@@ -1,10 +1,7 @@
-<br>
-<br>
-<br>
-<br>
+
 <button (click)="addData()" class="add">Add Program</button>
 
-<ejs-grid [dataSource]="tempData">
+<ejs-grid [dataSource]="tempData" #grid>
     <e-columns>
         <e-column field='programName' headerText='program Name' textAlign='center' width=50></e-column>
         <e-column field='programNumber' headerText='program Number' textAlign='center' width=50></e-column>
@@ -13,9 +10,8 @@
         <e-column field='programID' headerText='' textAlign='center' format='yMd' width=50>
             <ng-template #template let-data>
                 <button (click)="editdata(data)" class="edit">Edit</button>
-                <button  (click)="deactivateStatus(data)" *ngIf="data.isActive" class="active">Active</button>
-                <button (click)="changeStatus(data)" *ngIf="!data.isActive"
-                    class="deactive active">Deactive</button>
+                <button (click)="deactivateStatus(data)" *ngIf="data.isActive" class="active">Active</button>
+                <button (click)="changeStatus(data)" *ngIf="!data.isActive" class="deactive active">Deactive</button>
 
             </ng-template>
         </e-column>
@@ -24,4 +20,3 @@
 <app-popup-form class="popupForm" id="popupForm" *ngIf="popupBox.value">
 
 </app-popup-form>
-<router-outlet></router-outlet>

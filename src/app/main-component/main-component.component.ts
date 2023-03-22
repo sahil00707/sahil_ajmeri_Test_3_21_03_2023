@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { GridComponent } from '@syncfusion/ej2-angular-grids';
 import { pluck } from 'rxjs';
 import { programDataType } from '../interface/data-type';
 import { MyserviceService } from '../services/myservice.service';
@@ -10,8 +11,9 @@ import { MyserviceService } from '../services/myservice.service';
 })
 export class MainComponentComponent implements OnInit {
   tempData: any = this.myservice.allPrograms;
-  programsData: object[] = [];
+  temp: any;
   popupBox = this.myservice.isClicked;
+  @ViewChild('grid') grid: GridComponent | undefined
   constructor(private myservice: MyserviceService, private router: Router,) {
   }
   ngOnInit() {
@@ -53,4 +55,13 @@ export class MainComponentComponent implements OnInit {
 
     }
   }
+  close() {
+    this.myservice.getProject().subscribe(res => {
+      this.temp = res;
+      this.tempData = this.temp.programs;
+    });
+    this.grid?.refresh();
+    this.myservice.isClicked.next(false);
+  }
+
 }

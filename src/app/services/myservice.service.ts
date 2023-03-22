@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ApiDataType, programDataType } from '../interface/data-type';
 import { BehaviorSubject, map } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class MyserviceService {
+export class MyserviceService implements OnInit {
   isClicked = new BehaviorSubject<boolean>(false)
   addOrEdit = new BehaviorSubject<boolean>(false)
   formData = {
@@ -18,9 +18,15 @@ export class MyserviceService {
     isActive: false,
     canDelete: false
   }
-  allPrograms = new BehaviorSubject<programDataType[]>([]);
+  allPrograms :any;
+  temp: any;
   constructor(private http: HttpClient) { }
-
+  ngOnInit() {
+    this.getProject().subscribe(res => {
+      this.temp = res;
+      this.allPrograms=this.temp.programs;
+    });
+  }
   getProject() {
     return this.http.get<ApiDataType<programDataType[]>>('http://cmi-ofm.azurewebsites.net/api/Program')
   }
@@ -30,6 +36,7 @@ export class MyserviceService {
     Object.keys(programData).forEach((key) =>
       formObject.append(key, (programData as any)[key])
     );
+
     return this.http.post('http://cmi-ofm.azurewebsites.net/api/program', formObject)
   }
 
