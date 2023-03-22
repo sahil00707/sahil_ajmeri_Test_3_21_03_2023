@@ -39,7 +39,9 @@ export class PopupFormComponent implements OnInit{
    const varify = confirm('are you sure you want to edit?')
    if(varify){
     updatedData.programID = programID;
-    this.myservice.updateData(updatedData).subscribe();
+    this.myservice.updateData(updatedData).subscribe(res=>{
+
+    });
     setTimeout(() => {
       alert('Data Updated  Successfully')
       window.location.reload();

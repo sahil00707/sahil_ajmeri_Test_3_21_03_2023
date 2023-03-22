@@ -9,12 +9,16 @@ import { MyserviceService } from '../services/myservice.service';
   styleUrls: ['./main-component.component.scss']
 })
 export class MainComponentComponent implements OnInit {
-  tempData: any = [];
+  tempData: any = this.myservice.allPrograms;
   programsData: object[] = [];
   popupBox = this.myservice.isClicked;
   constructor(private myservice: MyserviceService, private router: Router,) {
   }
   ngOnInit() {
+    this.fetchData();
+  }
+
+  fetchData() {
     this.myservice.getProject().pipe(pluck('programs')).subscribe(res => {
       this.tempData = res;
     });
@@ -34,11 +38,19 @@ export class MainComponentComponent implements OnInit {
   changeStatus(programData: programDataType) {
 
     if (confirm('are you sure?')) {
-      programData.isActive = !programData.isActive;
       this.myservice.updateStatus(programData).subscribe(res => {
+        this.fetchData();
       })
 
     }
 
+  }
+  deactivateStatus(programData: programDataType) {
+    if (confirm('are you sure?')) {
+      this.myservice.deactivate(programData).subscribe(res => {
+        this.fetchData();
+      })
+
+    }
   }
 }

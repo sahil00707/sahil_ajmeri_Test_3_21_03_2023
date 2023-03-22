@@ -13,14 +13,15 @@
         <e-column field='programID' headerText='' textAlign='center' format='yMd' width=50>
             <ng-template #template let-data>
                 <button (click)="editdata(data)" class="edit">Edit</button>
-                <button
-                    (click)="changeStatus(data)" class="active">{{data.isActive?'Activate':'Deactive'}}</button>
-                 
-                </ng-template>
+                <button  (click)="deactivateStatus(data)" *ngIf="data.isActive" class="active">Active</button>
+                <button (click)="changeStatus(data)" *ngIf="!data.isActive"
+                    class="deactive active">Deactive</button>
+
+            </ng-template>
         </e-column>
     </e-columns>
 </ejs-grid>
 <app-popup-form class="popupForm" id="popupForm" *ngIf="popupBox.value">
-  
+
 </app-popup-form>
 <router-outlet></router-outlet>
