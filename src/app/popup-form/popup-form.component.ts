@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { pluck } from 'rxjs';
 import { ApiDataType, programDataType } from '../interface/data-type';
 import { MyserviceService } from '../services/myservice.service';
@@ -9,8 +9,19 @@ import { Router } from '@angular/router';
   templateUrl: './popup-form.component.html',
   styleUrls: ['./popup-form.component.scss']
 })
-export class PopupFormComponent {
+export class PopupFormComponent implements OnInit{
+  addOrEdit=this.myservice.addOrEdit
   editData: programDataType = {
+    programBudget: 0,
+    programDescription: '',
+    programName: '',
+    programNumber: '',
+    isVirtual: false,
+    programID: '',
+    isActive: false,
+    canDelete: false
+  }
+  newData: programDataType = {
     programBudget: 0,
     programDescription: '',
     programName: '',
@@ -35,25 +46,21 @@ export class PopupFormComponent {
     this.myservice.getProject().subscribe();
   }
   updateData(programID: string, updatedData: programDataType) {
+   const varify = confirm('are you sure you want to edit?')
+   if(varify){
     updatedData.programID = programID;
     this.myservice.updateData(updatedData).subscribe();
     setTimeout(() => {
       alert('Data Updated  Successfully')
       window.location.reload();
     }, 1200);
-   
+   }
+   else{
+    this.myservice.isClicked.next(false);
+   }
   }
   close() {
-    this.editData = {
-      programBudget: 0,
-      programDescription: '',
-      programName: '',
-      programNumber: '',
-      isVirtual: false,
-      programID: '',
-      isActive: false,
-      canDelete: false
-    }
+   
     this.myservice.isClicked.next(false);
   }
 }

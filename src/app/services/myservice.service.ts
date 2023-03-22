@@ -6,8 +6,8 @@ import { BehaviorSubject, map } from 'rxjs';
   providedIn: 'root'
 })
 export class MyserviceService {
-  isClicked=new BehaviorSubject<boolean>(false)
-  addOrEdit=new BehaviorSubject<boolean>(false)
+  isClicked = new BehaviorSubject<boolean>(false)
+  addOrEdit = new BehaviorSubject<boolean>(false)
   formData = {
     programBudget: 0,
     programDescription: '',

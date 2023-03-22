@@ -22,14 +22,17 @@ export class MainComponentComponent implements OnInit {
 
   addData() {
     this.myservice.isClicked.next(true);
-    this.popupBox = this.myservice.isClicked;
+    this.myservice.addOrEdit.next(true);
+    //  this.popupBox = this.myservice.isClicked;
     console.log(this.popupBox.value);
   }
   editdata(programData: any) {
     this.myservice.formData = programData;
     this.myservice.isClicked.next(true);
+    this.myservice.addOrEdit.next(false);
+
     this.popupBox = this.myservice.isClicked;
-   }
+  }
   changeStatus(programID: string, data: programDataType, isActive: boolean) {
     this.myservice.changeStatus(programID, data, isActive).subscribe(res => {
       console.log(res);
