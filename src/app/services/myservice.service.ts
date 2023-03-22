@@ -70,8 +70,28 @@ export class MyserviceService {
     )
   }
 
-  changeStatus(programID: string, data: programDataType, isActive: boolean) {
-    data.isActive = isActive
-    return this.http.put(`http://cmi-ofm.azurewebsites.net/api/program/${programID}/Activate`, data)
+
+  
+  updateStatus(programData: programDataType) {
+    const formObject = new FormData();
+    formObject.append('programID',programData.programID)
+    return this.http.put(`http://cmi-ofm.azurewebsites.net/api/program/${programData.programID}/activate`, formObject).pipe(
+      map((res) => {
+        if (res) {
+          const data1 = this.allPrograms.getValue();
+          const data2: programDataType[] = [];
+          data1.forEach((data) => {
+            if (data.programID == programData.programID) {
+              data2.push(data)
+            }
+            else {
+              data2.push(programData)
+            }
+          });
+          this.allPrograms.next(data2);
+        }
+      })
+    )
   }
+
 }

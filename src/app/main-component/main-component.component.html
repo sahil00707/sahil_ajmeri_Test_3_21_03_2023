@@ -14,7 +14,7 @@
             <ng-template #template let-data>
                 <button (click)="editdata(data)" class="edit">Edit</button>
                 <button
-                    (click)="changeStatus(data.programID,data,!data.isActive)" class="active">{{data.isActive?'Activate':'Deactive'}}</button>
+                    (click)="changeStatus(data)" class="active">{{data.isActive?'Activate':'Deactive'}}</button>
                  
                 </ng-template>
         </e-column>

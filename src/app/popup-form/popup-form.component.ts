@@ -21,16 +21,6 @@ export class PopupFormComponent implements OnInit{
     isActive: false,
     canDelete: false
   }
-  newData: programDataType = {
-    programBudget: 0,
-    programDescription: '',
-    programName: '',
-    programNumber: '',
-    isVirtual: false,
-    programID: '',
-    isActive: false,
-    canDelete: false
-  }
   sendData(myForm: programDataType) {
     this.myservice.sendData(myForm).subscribe();
     setTimeout(() => {
